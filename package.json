@@ -2,6 +2,7 @@
   "name": "plausible-current-visitors-proxy",
   "version": "1.0.0",
   "main": "index.js",
+  "bin": "index.js",
   "scripts": {
     "test": "m.test index.test.js"
   },
@@ -18,6 +19,7 @@
   "homepage": "https://github.com/christian-fei/plausible-current-visitors-proxy#readme",
   "description": "",
   "devDependencies": {
-    "m.test": "0.0.58"
+    "m.test": "0.0.58",
+    "nock": "^13.0.4"
   }
 }
