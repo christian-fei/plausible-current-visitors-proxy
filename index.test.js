@@ -1,36 +1,42 @@
-const { test, beforeEach, afterEach } = require('m.test')
+const { serial, beforeEach, afterEach } = require('ava')
 const nock = require('nock')
-const { ok, strictEqual } = require('assert')
 const listen = require('.')
 
 const http = require('http')
 
+const DOMAIN = 'cri.dev'
 let server
-
-test('server proxies through to plausible.io api', function (done) {
-  const scope = nock('https://plausible.io')
-    .get('/api/stats/cri.dev/current-visitors')
-    .reply(200, '123')
-  const address = `http://127.0.0.1:${server.address().port}`
-
-  ok(server)
-  ok(address)
-  console.log('making request to', address)
-  http.get(address, (res) => {
-    res.on('data', function (chunk) {
-      const stringified = chunk.toString()
-      console.log('received chunk', stringified)
-      strictEqual(stringified, '123')
-    })
-
-    scope.done()
-    done()
-  })
-})
-
 beforeEach(() => {
-  server = listen(0, 'cri.dev')
+  server = listen(0, DOMAIN)
 })
 afterEach(() => {
   server.close()
 })
+
+serial('server proxies through to plausible.io api', async function (t) {
+  const scope = nock('https://plausible.io')
+    .get(`/api/stats/${DOMAIN}/current-visitors`)
+    .reply(200, '123')
+  const address = `http://127.0.0.1:${server.address().port}`
+
+  t.truthy(server)
+  t.truthy(address)
+  console.log('making request to', address)
+
+  const res = await request(address)
+
+  scope.done()
+  res.on('data', function (chunk) {
+    const stringified = chunk.toString()
+    console.log('received chunk', stringified)
+    t.is(stringified, '123')
+  })
+})
+
+function request (address) {
+  return new Promise((resolve, reject) => {
+    http.get(address, function (res) {
+      resolve(res)
+    })
+  })
+}

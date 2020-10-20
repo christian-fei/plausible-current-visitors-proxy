@@ -4,7 +4,7 @@
   "main": "index.js",
   "bin": "index.js",
   "scripts": {
-    "test": "m.test index.test.js"
+    "test": "ava"
   },
   "keywords": [],
   "author": "",
@@ -19,7 +19,7 @@
   "homepage": "https://github.com/christian-fei/plausible-current-visitors-proxy#readme",
   "description": "",
   "devDependencies": {
-    "m.test": "0.0.58",
+    "ava": "^3.13.0",
     "nock": "^13.0.4"
   }
 }
