@@ -1,0 +1,23 @@
+{
+  "name": "plausible-current-visitors-proxy",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "m.test index.test.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/christian-fei/plausible-current-visitors-proxy.git"
+  },
+  "bugs": {
+    "url": "https://github.com/christian-fei/plausible-current-visitors-proxy/issues"
+  },
+  "homepage": "https://github.com/christian-fei/plausible-current-visitors-proxy#readme",
+  "description": "",
+  "devDependencies": {
+    "m.test": "0.0.58"
+  }
+}
